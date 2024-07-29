@@ -8,5 +8,5 @@ class Product {
       required this.description,
       required this.imageUrl,
       required this.price,
-      required this.isFavorite});
+      this.isFavorite = false});
 }
