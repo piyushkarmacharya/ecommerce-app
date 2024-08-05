@@ -38,15 +38,20 @@ class ProductsOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
-        title: Text("XYZ Shop"),
+        centerTitle: true,
+        title: Text(
+          "My Shop",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: GridView.builder(
           padding: const EdgeInsets.all(10),
           itemCount: loadedProduct.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
+              childAspectRatio: 3 / 3,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10),
           itemBuilder: (context, i) {

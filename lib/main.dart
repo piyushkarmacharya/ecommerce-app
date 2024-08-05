@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Ecommerce",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
+        appBarTheme: AppBarTheme(backgroundColor: Colors.blueGrey),
+        fontFamily: "Lato",
       ),
       home: ProductsOverviewScreen(),
     );
