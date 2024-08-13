@@ -20,4 +20,14 @@ class ProductNotifier extends StateNotifier<List<Product>> {
           prod,
     ];
   }
+
+  List<Product> getFavProduct() {
+    List<Product> p = [];
+    for (final prod in state) {
+      if (prod.isFavorite == true) {
+        p.add(prod);
+      }
+    }
+    return p;
+  }
 }

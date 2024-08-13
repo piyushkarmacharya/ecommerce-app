@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/products_overview_screen.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:ecommerce_app/widgets/product_item.dart';
 import 'package:flutter/foundation.dart';
@@ -5,11 +6,14 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductGrid extends ConsumerWidget {
-  const ProductGrid({super.key});
+  final filter selectedFilter;
+  const ProductGrid({super.key, required this.selectedFilter});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final products = ref.watch(productProvider);
+    final products = selectedFilter == filter.fav
+        ? ref.watch(productProvider.notifier).getFavProduct()
+        : ref.watch(productProvider);
     return GridView.builder(
         padding: const EdgeInsets.all(10),
         itemCount: products.length,

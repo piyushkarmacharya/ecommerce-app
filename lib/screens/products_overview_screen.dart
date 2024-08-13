@@ -12,8 +12,11 @@ class ProductsOverviewScreen extends ConsumerStatefulWidget {
       _ProductsOverviewScreenState();
 }
 
+enum filter { all, fav }
+
 class _ProductsOverviewScreenState
     extends ConsumerState<ProductsOverviewScreen> {
+  filter selectedFilter = filter.all;
   void setProducts() {
     ref.read(productProvider.notifier).addInitialProducts([
       Product(
@@ -52,6 +55,19 @@ class _ProductsOverviewScreenState
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+              onSelected: (value) {
+                setState(() {
+                  selectedFilter = value;
+                });
+              },
+              itemBuilder: (context) => [
+                    PopupMenuItem(child: Text("Show All"), value: filter.all),
+                    PopupMenuItem(
+                        child: Text("Show Favourite"), value: filter.fav),
+                  ])
+        ],
         centerTitle: true,
         title: GestureDetector(
           onTap: setProducts,
@@ -61,7 +77,9 @@ class _ProductsOverviewScreenState
           ),
         ),
       ),
-      body: ProductGrid(),
+      body: ProductGrid(
+        selectedFilter: selectedFilter,
+      ),
     );
   }
 }
