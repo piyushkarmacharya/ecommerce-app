@@ -1,16 +1,19 @@
 import 'package:ecommerce_app/screens/product_details.dart';
+import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductItem extends StatelessWidget {
-  final String id, title, imageUrl;
-  const ProductItem(
-      {super.key,
-      required this.id,
-      required this.title,
-      required this.imageUrl});
+class ProductItem extends ConsumerWidget {
+  final String id;
+  const ProductItem({
+    super.key,
+    required this.id,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final product =
+        ref.watch(productProvider).firstWhere((prod) => prod.id == id);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -25,13 +28,17 @@ class ProductItem extends StatelessWidget {
           // ),
           footer: GridTileBar(
             leading: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite,
+                onPressed: () {
+                  ref.read(productProvider.notifier).changeFavourite(id);
+                },
+                icon: Icon(
+                  product.isFavorite == true
+                      ? Icons.favorite
+                      : Icons.favorite_border,
                 )),
             backgroundColor: Colors.black54,
             title: Text(
-              title,
+              product.title,
               textAlign: TextAlign.center,
             ),
             trailing: IconButton(
@@ -43,7 +50,7 @@ class ProductItem extends StatelessWidget {
                   .pushNamed(ProductDetails.urlName, arguments: id);
             },
             child: Image.network(
-              imageUrl,
+              product.imageUrl,
               fit: BoxFit.cover,
             ),
           )),

@@ -10,4 +10,14 @@ class ProductNotifier extends StateNotifier<List<Product>> {
   void addProduct(Product p) {
     state = [...state, p];
   }
+
+  void changeFavourite(String id) {
+    state = [
+      for (final prod in state)
+        if (prod.id == id)
+          prod.copyWith(isFavorite: !prod.isFavorite)
+        else
+          prod,
+    ];
+  }
 }

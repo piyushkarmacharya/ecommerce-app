@@ -19,10 +19,7 @@ class ProductGrid extends ConsumerWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10),
         itemBuilder: (context, i) {
-          return ProductItem(
-              id: products[i].id,
-              title: products[i].title,
-              imageUrl: products[i].imageUrl);
+          return ProductItem(id: products[i].id);
         });
   }
 }
