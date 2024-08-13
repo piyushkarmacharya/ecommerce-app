@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/main.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
+import 'package:ecommerce_app/widgets/product_grid.dart';
 import 'package:ecommerce_app/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
@@ -48,7 +49,6 @@ class _ProductsOverviewScreenState
 
   @override
   Widget build(BuildContext context) {
-    final products = ref.watch(productProvider);
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
@@ -61,20 +61,7 @@ class _ProductsOverviewScreenState
           ),
         ),
       ),
-      body: GridView.builder(
-          padding: const EdgeInsets.all(10),
-          itemCount: products.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 3 / 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10),
-          itemBuilder: (context, i) {
-            return ProductItem(
-                id: products[i].id,
-                title: products[i].title,
-                imageUrl: products[i].imageUrl);
-          }),
+      body: ProductGrid(),
     );
   }
 }
