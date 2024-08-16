@@ -8,13 +8,13 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   void addProduct(Product p, int qty) {
     final existingProductIndex =
         state.indexWhere((cartItem) => cartItem.product.id == p.id);
-    if (existingProductIndex != -1) {
+    if (existingProductIndex == -1) {
       state = [...state, CartItem(product: p, qty: qty)];
     } else {
       state = [
         for (final cartItem in state)
-          if (int.parse(cartItem.product.id) == existingProductIndex)
-            cartItem.copyWith(qty: qty + 1)
+          if (cartItem.product.id == p.id)
+            cartItem.copyWith(product: p, qty: cartItem.qty + qty)
           else
             cartItem,
       ];

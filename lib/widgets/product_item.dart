@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screens/product_details.dart';
+import 'package:ecommerce_app/stateManagement/providers/cart_provider.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,8 @@ class ProductItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final product =
         ref.watch(productProvider).firstWhere((prod) => prod.id == id);
+    final cartNotifier = ref.read(cartProvider.notifier);
+    final cart = ref.watch(cartProvider);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -42,7 +45,15 @@ class ProductItem extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             trailing: IconButton(
-                onPressed: () {}, icon: const Icon(Icons.shopping_cart)),
+              onPressed: () {
+                cartNotifier.addProduct(product, 10);
+                debugPrint(cart.toString());
+              },
+              icon: Icon(
+                  cart.indexWhere((cartItem) => cartItem.product.id == id) != -1
+                      ? Icons.shopping_cart
+                      : Icons.shopping_cart_outlined),
+            ),
           ),
           child: GestureDetector(
             onTap: () {
