@@ -6,12 +6,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductGrid extends ConsumerWidget {
-  final filter selectedFilter;
+  final Filter selectedFilter;
   const ProductGrid({super.key, required this.selectedFilter});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final products = selectedFilter == filter.fav
+    final products = selectedFilter == Filter.fav
         ? ref.watch(productProvider.notifier).getFavProduct()
         : ref.watch(productProvider);
     return GridView.builder(

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/main.dart';
+import 'package:ecommerce_app/stateManagement/providers/cart_provider.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:ecommerce_app/widgets/product_grid.dart';
 import 'package:ecommerce_app/widgets/product_item.dart';
@@ -12,11 +13,11 @@ class ProductsOverviewScreen extends ConsumerStatefulWidget {
       _ProductsOverviewScreenState();
 }
 
-enum filter { all, fav }
+enum Filter { all, fav }
 
 class _ProductsOverviewScreenState
     extends ConsumerState<ProductsOverviewScreen> {
-  filter selectedFilter = filter.all;
+  Filter selectedFilter = Filter.all;
   void setProducts() {
     ref.read(productProvider.notifier).addInitialProducts([
       Product(
@@ -52,6 +53,7 @@ class _ProductsOverviewScreenState
 
   @override
   Widget build(BuildContext context) {
+    final cart = ref.watch(cartProvider);
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       appBar: AppBar(
@@ -63,36 +65,36 @@ class _ProductsOverviewScreenState
                 });
               },
               itemBuilder: (context) => [
-                    PopupMenuItem(child: Text("Show All"), value: filter.all),
+                    PopupMenuItem(child: Text("Show All"), value: Filter.all),
                     PopupMenuItem(
-                        child: Text("Show Favourite"), value: filter.fav),
+                        child: Text("Show Favourite"), value: Filter.fav),
                   ]),
           Stack(
             children: [
               Icon(Icons.shopping_cart, size: 30.0), // The shopping cart icon
-              if (5 > 0)
-                Positioned(
-                  bottom: 1,
-                  left: 1,
-                  right: 1,
-                  top: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+
+              Positioned(
+                bottom: 1,
+                left: 1,
+                right: 1,
+                top: 1,
+                child: Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                )
+                  child: Text(
+                    cart.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
             ],
           ),
         ],
