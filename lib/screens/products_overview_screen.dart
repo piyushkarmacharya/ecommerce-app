@@ -66,7 +66,35 @@ class _ProductsOverviewScreenState
                     PopupMenuItem(child: Text("Show All"), value: filter.all),
                     PopupMenuItem(
                         child: Text("Show Favourite"), value: filter.fav),
-                  ])
+                  ]),
+          Stack(
+            children: [
+              Icon(Icons.shopping_cart, size: 30.0), // The shopping cart icon
+              if (5 > 0)
+                Positioned(
+                  bottom: 1,
+                  left: 1,
+                  right: 1,
+                  top: 1,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      '5',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+            ],
+          ),
         ],
         centerTitle: true,
         title: GestureDetector(
