@@ -16,7 +16,7 @@ class ProductDetails extends ConsumerWidget {
       appBar: AppBar(
         title: Text(id),
       ),
-      body: Container(
+      body: SizedBox(
         child: Text(loadedProduct.title),
       ),
     );
