@@ -46,7 +46,7 @@ class ProductItem extends ConsumerWidget {
             ),
             trailing: IconButton(
               onPressed: () {
-                cartNotifier.addProduct(product, 10);
+                cartNotifier.addProduct(product, 1);
               },
               icon: Icon(
                   cart.indexWhere((cartItem) => cartItem.product.id == id) != -1

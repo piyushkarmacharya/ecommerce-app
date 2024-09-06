@@ -20,4 +20,12 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
       ];
     }
   }
+
+  double getTotalAmount() {
+    double amt = 0.0;
+    for (final cartItem in state) {
+      amt = amt + (cartItem.qty * cartItem.product.price);
+    }
+    return amt;
+  }
 }

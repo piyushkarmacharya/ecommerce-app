@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/screens/products_overview_screen.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:ecommerce_app/widgets/product_item.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

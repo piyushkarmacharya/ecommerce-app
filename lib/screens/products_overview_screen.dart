@@ -1,14 +1,14 @@
-import 'package:ecommerce_app/main.dart';
+import 'package:ecommerce_app/screens/cart_page.dart';
 import 'package:ecommerce_app/stateManagement/providers/cart_provider.dart';
 import 'package:ecommerce_app/stateManagement/providers/product_provider.dart';
 import 'package:ecommerce_app/widgets/product_grid.dart';
-import 'package:ecommerce_app/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductsOverviewScreen extends ConsumerStatefulWidget {
   const ProductsOverviewScreen({super.key});
+  @override
   ConsumerState<ProductsOverviewScreen> createState() =>
       _ProductsOverviewScreenState();
 }
@@ -26,7 +26,7 @@ class _ProductsOverviewScreenState
           description: "Cotton red Shirt",
           imageUrl:
               "https://th.bing.com/th/id/OIP.QVnOX2GSI7iY5fNPyCHdrwHaH8?rs=1&pid=ImgDetMain",
-          price: 1000),
+          price: 5000),
       Product(
           id: "002",
           title: "White Shirt",
@@ -64,38 +64,49 @@ class _ProductsOverviewScreenState
                   selectedFilter = value;
                 });
               },
-              itemBuilder: (context) => [
-                    PopupMenuItem(child: Text("Show All"), value: Filter.all),
+              itemBuilder: (context) => const [
                     PopupMenuItem(
-                        child: Text("Show Favourite"), value: Filter.fav),
-                  ]),
-          Stack(
-            children: [
-              Icon(Icons.shopping_cart, size: 30.0), // The shopping cart icon
-
-              Positioned(
-                bottom: 1,
-                left: 1,
-                right: 1,
-                top: 1,
-                child: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    cart.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
+                      value: Filter.all,
+                      child: Text("Show All"),
                     ),
-                    textAlign: TextAlign.center,
+                    PopupMenuItem(
+                      value: Filter.fav,
+                      child: Text("Show Favourite"),
+                    ),
+                  ]),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(CartPage.routeName);
+            },
+            child: Stack(
+              children: [
+                const Icon(Icons.shopping_cart,
+                    size: 30.0), // The shopping cart icon
+
+                Positioned(
+                  bottom: 1,
+                  left: 1,
+                  right: 1,
+                  top: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      cart.length.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ],
         centerTitle: true,
